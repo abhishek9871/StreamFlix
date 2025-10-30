@@ -1,140 +1,195 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cinematic TV - Smart Streaming</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#E50914">
-    <meta name="description" content="Premium Smart TV streaming application with remote control navigation">
-    <meta name="keywords" content="streaming, smart tv, movies, tv shows, remote control">
-    <meta name="author" content="MiniMax Agent">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23E50914' rx='4'/%3E%3Cpath d='M8 10h16v12H8z' fill='white'/%3E%3Ccircle cx='16' cy='16' r='2' fill='%23E50914'/%3E%3C/svg%3E">
-</head>
-<body>
-    <!-- Navigation Sidebar -->
-    <nav class="sidebar" id="sidebar">
-        <div class="sidebar-items">
-            <div class="sidebar-item" data-section="home" tabindex="0">
-                <div class="sidebar-icon">🏠</div>
-                <div class="sidebar-text">Home</div>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Cinematic TV - Smart Streaming (Updated)</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="styles.css" />
+        <link rel="manifest" href="manifest.json" />
+        <meta name="theme-color" content="#E50914" />
+        <meta
+            name="description"
+            content="Premium Smart TV streaming application with remote control navigation"
+        />
+        <meta
+            name="keywords"
+            content="streaming, smart tv, movies, tv shows, remote control"
+        />
+        <meta name="author" content="MiniMax Agent" />
+        <link
+            rel="icon"
+            type="image/svg+xml"
+            href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23E50914' rx='4'/%3E%3Cpath d='M8 10h16v12H8z' fill='white'/%3E%3Ccircle cx='16' cy='16' r='2' fill='%23E50914'/%3E%3C/svg%3E"
+        />
+    </head>
+    <body>
+        <!-- Navigation Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-items">
+                <div class="sidebar-item" data-section="home" tabindex="0">
+                    <div class="sidebar-icon">🏠</div>
+                    <div class="sidebar-text">Home</div>
+                </div>
+                <div class="sidebar-item" data-section="movies" tabindex="0">
+                    <div class="sidebar-icon">🎬</div>
+                    <div class="sidebar-text">Movies</div>
+                </div>
+                <div class="sidebar-item" data-section="tv" tabindex="0">
+                    <div class="sidebar-icon">📺</div>
+                    <div class="sidebar-text">TV Shows</div>
+                </div>
+                <div class="sidebar-item" data-section="search" tabindex="0">
+                    <div class="sidebar-icon">🔍</div>
+                    <div class="sidebar-text">Search</div>
+                </div>
             </div>
-            <div class="sidebar-item" data-section="movies" tabindex="0">
-                <div class="sidebar-icon">🎬</div>
-                <div class="sidebar-text">Movies</div>
-            </div>
-            <div class="sidebar-item" data-section="tv" tabindex="0">
-                <div class="sidebar-icon">📺</div>
-                <div class="sidebar-text">TV Shows</div>
-            </div>
-            <div class="sidebar-item" data-section="search" tabindex="0">
-                <div class="sidebar-icon">🔍</div>
-                <div class="sidebar-text">Search</div>
-            </div>
-        </div>
-    </nav>
+        </nav>
 
-    <!-- Main Content Area -->
-    <main class="main-content" id="mainContent">
-        <!-- Home Section -->
-        <section class="content-section active" id="homeSection">
-            <div class="hero-section" id="heroSection">
-                <div class="hero-content">
-                    <h1 class="hero-title" id="heroTitle">Cinematic TV</h1>
-                    <p class="hero-description">Experience the best movies and TV shows with premium streaming quality</p>
-                    <div class="hero-actions">
-                        <button class="btn-primary" id="heroPlayBtn">▶ Play Now</button>
-                        <button class="btn-secondary" id="heroMoreBtn">ℹ More Info</button>
+        <!-- Main Content Area -->
+        <main class="main-content" id="mainContent">
+            <!-- Home Section -->
+            <section class="content-section active" id="homeSection">
+                <div class="hero-section" id="heroSection">
+                    <div class="hero-content">
+                        <h1 class="hero-title" id="heroTitle">Cinematic TV</h1>
+                        <p class="hero-description">
+                            Experience the best movies and TV shows with premium
+                            streaming quality
+                        </p>
+                        <div class="hero-actions">
+                            <button class="btn-primary" id="heroPlayBtn">
+                                ▶ Play Now
+                            </button>
+                            <button class="btn-secondary" id="heroMoreBtn">
+                                ℹ More Info
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Content Rails -->
-            <div class="content-rails">
-                <div class="content-rail">
-                    <h2 class="rail-title">Trending Now</h2>
-                    <div class="rail-container" id="trendingRail"></div>
-                </div>
-                
-                <div class="content-rail">
-                    <h2 class="rail-title">Popular Movies</h2>
-                    <div class="rail-container" id="popularMoviesRail"></div>
-                </div>
-                
-                <div class="content-rail">
-                    <h2 class="rail-title">Popular TV Shows</h2>
-                    <div class="rail-container" id="popularTVRail"></div>
-                </div>
-            </div>
-        </section>
 
-        <!-- Movies Section -->
-        <section class="content-section" id="moviesSection">
-            <div class="section-header">
-                <h1 class="section-title">Movies</h1>
-                <div class="section-filters">
-                    <button class="filter-btn active" data-filter="popular">Popular</button>
-                    <button class="filter-btn" data-filter="top_rated">Top Rated</button>
-                    <button class="filter-btn" data-filter="upcoming">Upcoming</button>
-                </div>
-            </div>
-            <div class="content-grid" id="moviesGrid"></div>
-        </section>
+                <!-- Content Rails -->
+                <div class="content-rails">
+                    <div class="content-rail">
+                        <h2 class="rail-title">Trending Now</h2>
+                        <div class="rail-container" id="trendingRail"></div>
+                    </div>
 
-        <!-- TV Shows Section -->
-        <section class="content-section" id="tvSection">
-            <div class="section-header">
-                <h1 class="section-title">TV Shows</h1>
-                <div class="section-filters">
-                    <button class="filter-btn active" data-filter="popular">Popular</button>
-                    <button class="filter-btn" data-filter="top_rated">Top Rated</button>
-                    <button class="filter-btn" data-filter="on_the_air">On Air</button>
-                </div>
-            </div>
-            <div class="content-grid" id="tvGrid"></div>
-        </section>
+                    <div class="content-rail">
+                        <h2 class="rail-title">Popular Movies</h2>
+                        <div
+                            class="rail-container"
+                            id="popularMoviesRail"
+                        ></div>
+                    </div>
 
-        <!-- Search Section -->
-        <section class="content-section" id="searchSection">
-            <div class="section-header">
-                <h1 class="section-title">Search</h1>
-                <div class="search-container">
-                    <input type="text" class="search-input" id="searchInput" placeholder="Search for movies and TV shows..." autocomplete="off">
+                    <div class="content-rail">
+                        <h2 class="rail-title">Popular TV Shows</h2>
+                        <div class="rail-container" id="popularTVRail"></div>
+                    </div>
                 </div>
-            </div>
-            <div class="search-results" id="searchResults"></div>
-        </section>
-    </main>
+            </section>
 
-    <!-- Detail Modal -->
-    <div class="modal" id="detailModal">
-        <div class="modal-content">
-            <button class="modal-close" id="modalClose">×</button>
-            <div class="modal-body" id="modalBody">
-                <!-- Dynamic content will be inserted here -->
+            <!-- Movies Section -->
+            <section class="content-section" id="moviesSection">
+                <div class="section-header">
+                    <h1 class="section-title">Movies</h1>
+                    <div class="section-filters">
+                        <button class="filter-btn active" data-filter="popular">
+                            Popular
+                        </button>
+                        <button class="filter-btn" data-filter="top_rated">
+                            Top Rated
+                        </button>
+                        <button class="filter-btn" data-filter="upcoming">
+                            Upcoming
+                        </button>
+                    </div>
+                </div>
+                <div class="content-grid" id="moviesGrid"></div>
+            </section>
+
+            <!-- TV Shows Section -->
+            <section class="content-section" id="tvSection">
+                <div class="section-header">
+                    <h1 class="section-title">TV Shows</h1>
+                    <div class="section-filters">
+                        <button class="filter-btn active" data-filter="popular">
+                            Popular
+                        </button>
+                        <button class="filter-btn" data-filter="top_rated">
+                            Top Rated
+                        </button>
+                        <button class="filter-btn" data-filter="on_the_air">
+                            On Air
+                        </button>
+                    </div>
+                </div>
+                <div class="content-grid" id="tvGrid"></div>
+            </section>
+
+            <!-- Search Section -->
+            <section class="content-section" id="searchSection">
+                <div class="section-header">
+                    <h1 class="section-title">Search</h1>
+                    <div class="search-container">
+                        <input
+                            type="text"
+                            class="search-input"
+                            id="searchInput"
+                            placeholder="Search for movies and TV shows..."
+                            autocomplete="off"
+                        />
+                    </div>
+                </div>
+                <div class="search-results" id="searchResults"></div>
+            </section>
+        </main>
+
+        <!-- Detail Modal -->
+        <div class="modal" id="detailModal">
+            <div class="modal-content">
+                <button class="modal-close" id="modalClose">×</button>
+                <div class="modal-body" id="modalBody">
+                    <!-- Dynamic content will be inserted here -->
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Video Player Modal -->
-    <div class="video-modal" id="videoModal">
-        <div class="video-container">
-            <button class="video-close" id="videoClose" tabindex="0" aria-label="Close video">×</button>
-            <iframe id="videoFrame" src="" frameborder="0" allow="autoplay; fullscreen" allowfullscreen sandbox="allow-scripts allow-same-origin allow-forms allow-presentation"></iframe>
+        <!-- Video Player Modal -->
+        <div class="video-modal" id="videoModal">
+            <div class="video-container">
+                <button
+                    class="video-close"
+                    id="videoClose"
+                    tabindex="0"
+                    aria-label="Close video"
+                >
+                    ×
+                </button>
+                <iframe
+                    id="videoFrame"
+                    src=""
+                    frameborder="0"
+                    allow="autoplay; fullscreen"
+                    allowfullscreen
+                    sandbox="allow-scripts allow-same-origin allow-forms allow-presentation"
+                ></iframe>
+            </div>
         </div>
-    </div>
 
-    <!-- Loading Indicator -->
-    <div class="loading-indicator" id="loadingIndicator">
-        <div class="loading-spinner"></div>
-        <div class="loading-text">Loading...</div>
-    </div>
+        <!-- Loading Indicator -->
+        <div class="loading-indicator" id="loadingIndicator">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Loading...</div>
+        </div>
 
-    <!-- Scripts -->
-    <script src="app.js"></script>
-</body>
+        <!-- Scripts -->
+        <script src="app.js"></script>
+    </body>
 </html>
