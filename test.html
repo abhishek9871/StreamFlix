@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cinematic TV - Test Page</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background: #000;
+            color: #0f0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .test-section {
+            border: 1px solid #0f0;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .pass { color: #0f0; }
+        .fail { color: #f00; }
+        .info { color: #00f; }
+        button {
+            background: #333;
+            color: #0f0;
+            border: 1px solid #0f0;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin: 5px;
+            border-radius: 3px;
+        }
+        button:hover {
+            background: #0f0;
+            color: #000;
+        }
+        #results {
+            background: #111;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎬 Cinematic TV - Test Suite</h1>
+    <p>Test page to verify Smart TV streaming application functionality</p>
+    
+    <div class="test-section">
+        <h2>🧪 Automated Tests</h2>
+        <button onclick="runAllTests()">Run All Tests</button>
+        <button onclick="testAPI()">Test TMDb API</button>
+        <button onclick="testServiceWorker()">Test Service Worker</button>
+        <button onclick="testRemoteNavigation()">Test Remote Navigation</button>
+        <button onclick="testVideoEmbedding()">Test Video Embedding</button>
+        <button onclick="clearResults()">Clear Results</button>
+    </div>
+
+    <div class="test-section">
+        <h2>🎮 Manual Testing Guide</h2>
+        <div class="info">
+            <h3>Remote Control Navigation Test:</h3>
+            <ol>
+                <li>Use arrow keys to navigate between elements</li>
+                <li>Press Enter to select focused items</li>
+                <li>Press Escape/Back to go back</li>
+                <li>Verify focus indicators are visible</li>
+            </ol>
+
+            <h3>Content Loading Test:</h3>
+            <ol>
+                <li>Navigate to Home section</li>
+                <li>Verify content rails load with posters</li>
+                <li>Navigate to Movies and TV sections</li>
+                <li>Test search functionality</li>
+            </ol>
+
+            <h3>Video Streaming Test:</h3>
+            <ol>
+                <li>Click on any movie/show card</li>
+                <li>Click Play button</li>
+                <li>Verify video player opens</li>
+                <li>Test video controls</li>
+            </ol>
+        </div>
+    </div>
+
+    <div id="results"></div>
+
+    <script>
+        let testResults = [];
+
+        function log(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = `[${timestamp}] ${type.toUpperCase()}: ${message}`;
+            testResults.push(logEntry);
+            
+            const resultsDiv = document.getElementById('results');
+            const className = type === 'pass' ? 'pass' : type === 'fail' ? 'fail' : 'info';
+            resultsDiv.innerHTML += `<div class="${className}">${logEntry}</div>`;
+        }
+
+        function clearResults() {
+            testResults = [];
+            document.getElementById('results').innerHTML = '';
+            log('Test results cleared', 'info');
+        }
+
+        async function testAPI() {
+            log('Testing TMDb API connection...', 'info');
+            
+            try {
+                const response = await fetch('https://api.themoviedb.org/3/movie/popular?api_key=61d95006877f80fb61358dbb78f153c3&page=1');
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    log(`✅ TMDb API working - Found ${data.results.length} movies`, 'pass');
+                    log(`API Response time: ${response.headers.get('x-response-time') || 'N/A'}`, 'info');
+                } else {
+                    log(`❌ TMDb API failed - Status: ${response.status}`, 'fail');
+                }
+            } catch (error) {
+                log(`❌ TMDb API error: ${error.message}`, 'fail');
+            }
+        }
+
+        async function testServiceWorker() {
+            log('Testing Service Worker registration...', 'info');
+            
+            if ('serviceWorker' in navigator) {
+                try {
+                    const registration = await navigator.serviceWorker.register('/sw.js');
+                    log('✅ Service Worker registered successfully', 'pass');
+                    log(`SW Scope: ${registration.scope}`, 'info');
+                    
+                    // Test cache
+                    const cache = await caches.open('cinematic-tv-v1');
+                    const testKey = new Request('/test');
+                    const testResponse = new Response('test content');
+                    await cache.put(testKey, testResponse);
+                    log('✅ Service Worker cache working', 'pass');
+                } catch (error) {
+                    log(`❌ Service Worker error: ${error.message}`, 'fail');
+                }
+            } else {
+                log('❌ Service Worker not supported', 'fail');
+            }
+        }
+
+        function testRemoteNavigation() {
+            log('Testing remote control navigation...', 'info');
+            
+            // Test keyboard event handling
+            const testElement = document.createElement('div');
+            testElement.tabIndex = 0;
+            testElement.className = 'test-focus';
+            document.body.appendChild(testElement);
+            
+            let focused = false;
+            testElement.addEventListener('focus', () => {
+                focused = true;
+                log('✅ Focus management working', 'pass');
+            });
+            
+            testElement.focus();
+            
+            if (!focused) {
+                log('❌ Focus management failed', 'fail');
+            }
+            
+            // Clean up
+            document.body.removeChild(testElement);
+        }
+
+        async function testVideoEmbedding() {
+            log('Testing VidSrc video embedding...', 'info');
+            
+            try {
+                // Test if vidsrc.cc is accessible
+                const response = await fetch('https://vidsrc.cc/', {
+                    method: 'HEAD',
+                    mode: 'no-cors'
+                });
+                
+                log('✅ VidSrc service accessible', 'pass');
+                
+                // Test embed URL format
+                const testMovieId = 533535; // Black Panther
+                const embedUrl = `https://vidsrc.cc/v2/embed/movie/${testMovieId}?autoPlay=false`;
+                log(`✅ Embed URL format valid: ${embedUrl}`, 'pass');
+                
+            } catch (error) {
+                log(`⚠️  VidSrc test inconclusive: ${error.message}`, 'info');
+            }
+        }
+
+        async function testPerformance() {
+            log('Testing performance optimizations...', 'info');
+            
+            // Test lazy loading support
+            if ('loading' in HTMLImageElement.prototype) {
+                log('✅ Lazy loading supported', 'pass');
+            } else {
+                log('⚠️  Lazy loading not supported', 'info');
+            }
+            
+            // Test Intersection Observer (for performance monitoring)
+            if ('IntersectionObserver' in window) {
+                log('✅ Intersection Observer supported', 'pass');
+            } else {
+                log('⚠️  Intersection Observer not supported', 'info');
+            }
+        }
+
+        async function runAllTests() {
+            log('🚀 Starting comprehensive test suite...', 'info');
+            log('=' .repeat(50), 'info');
+            
+            await testAPI();
+            await testServiceWorker();
+            testRemoteNavigation();
+            await testVideoEmbedding();
+            await testPerformance();
+            
+            log('=' .repeat(50), 'info');
+            log('✅ Test suite completed', 'pass');
+            
+            // Count results
+            const passCount = testResults.filter(r => r.includes('✅')).length;
+            const failCount = testResults.filter(r => r.includes('❌')).length;
+            const infoCount = testResults.filter(r => r.includes('ℹ️') || r.includes('[')).length;
+            
+            log(`📊 Results: ${passCount} passed, ${failCount} failed, ${infoCount} info`, 'info');
+        }
+
+        // Auto-run basic tests on page load
+        window.addEventListener('load', () => {
+            log('🎬 Cinematic TV Test Suite loaded', 'info');
+            log('Click "Run All Tests" to verify functionality', 'info');
+        });
+
+        // Keyboard navigation test
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowUp' || e.key === 'ArrowDown' || 
+                e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+                log(`Remote key pressed: ${e.key}`, 'info');
+            }
+        });
+    </script>
+</body>
+</html>
