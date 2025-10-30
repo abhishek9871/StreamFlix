@@ -895,3 +895,18 @@
 # uploads/
 # downloads/
 
+# ==============================================================================
+# SMART TV STREAMING APP SPECIFIC
+# ==============================================================================
+# Browser cache and user data
+browser/user_data/
+browser/cache/
+browser/screenshots/
+.browser_screenshots/
+
+# Local development files
+deploy_url.txt
+
+# Workspace metadata
+workspace.json
+
