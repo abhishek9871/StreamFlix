@@ -19,6 +19,7 @@ class CinematicTV {
     this.setupRemoteControlNavigation();
     await this.loadInitialContent();
     // Loading state is managed by individual API requests
+    // Bug fix applied - removed duplicate showLoading(false) call
   }
 
   // API Methods
