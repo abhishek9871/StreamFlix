@@ -1,287 +1,360 @@
-# Cinematic TV - Smart TV Streaming Application
+# 🎬 StreamFlix - Smart TV Streaming Platform
 
-A premium streaming application specifically designed for Smart TVs with remote control navigation, optimized for slow internet connections, and featuring real-time movie and TV show data from TMDb API with VidSrc streaming integration.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Version](https://img.shields.io/badge/Version-1.0.0-blue.svg)](https://github.com/abhishek9871/StreamFlix)
+[![Platform](https://img.shields.io/badge/Platform-Smart%20TV%20%7C%20Web-green.svg)](https://github.com/abhishek9871/StreamFlix)
 
-## 🌟 Features
+StreamFlix is a modern, Smart TV-optimized streaming platform built specifically for television browsers with remote control navigation. It provides seamless access to movies and TV shows with an intuitive 10-foot UI design perfect for living room viewing.
 
-### Smart TV Optimizations
-- **10-Foot UI Design**: Large fonts and interface elements optimized for TV viewing distance
-- **Remote Control Navigation**: Full arrow key navigation with spatial focus management
-- **Focus Indicators**: Clear visual focus states with red glow effects for easy tracking
-- **Dark Theme**: Optimized for low-light TV viewing environments
-- **Large Touch Targets**: 48px+ touch targets for remote control compatibility
+## ✨ Features
 
-### Content & Streaming
-- **TMDb Integration**: Real-time data from The Movie Database API
-- **VidSrc Streaming**: High-quality video streaming with multiple server support
-- **Search Functionality**: Search across movies and TV shows
-- **Content Categories**: Popular, Top Rated, Trending, and Upcoming content
-- **Video Player**: Full-screen video player with remote control support
+### 🎯 Smart TV Optimized
+- **10-Foot UI Design**: Optimized for viewing from 10 feet away on television screens
+- **Remote Control Navigation**: Full keyboard and remote control support
+- **Large Touch Targets**: Easy navigation with TV remotes
+- **High Contrast Interface**: Pure black background with vibrant red accents
+- **Focused Visual Indicators**: Clear red glow effects for active elements
 
-### Performance Optimizations
-- **Slow Internet Support**: Optimized for bandwidth-constrained environments
-- **Progressive Loading**: Lazy loading of images and content
-- **Service Worker**: Caching strategies for offline functionality
-- **Image Optimization**: Compressed images with placeholder fallbacks
-- **Background Updates**: Smart caching with background refresh
+### 🎭 Content Discovery
+- **TMDb Integration**: Real-time access to The Movie Database
+- **Trending Content**: Discover what's popular across all media
+- **Popular Movies**: Browse trending and popular films
+- **Popular TV Shows**: Explore popular television series
+- **Search Functionality**: Find specific movies and shows
+- **Content Filtering**: Filter by genre, year, and rating
 
-### Smart Features
+### 🚀 Performance & Optimization
+- **Slow Internet Support**: Optimized for unreliable or slow connections
+- **Service Worker**: Offline functionality and smart caching
+- **Lazy Loading**: Images load only when needed
+- **Progressive Enhancement**: Works on all devices and browsers
+- **PWA Support**: Install as native app on compatible devices
+
+### 🎮 User Experience
 - **Spatial Navigation**: Intelligent focus management between UI elements
-- **Hero Content**: Featured content with auto-rotating highlights
-- **Auto-Continue**: Automatic next episode for TV shows
-- **Responsive Design**: Adapts to different TV resolutions (1080p, 4K)
-- **Accessibility**: Reduced motion support and keyboard navigation
+- **Keyboard Shortcuts**: Full keyboard accessibility
+- **Modal System**: Rich detail views and video players
+- **Responsive Design**: Works on desktop, tablet, and mobile
+- **Dark Theme**: Easy on the eyes for extended viewing
+
+## 🏗️ Technology Stack
+
+- **Frontend**: Vanilla JavaScript, HTML5, CSS3
+- **API**: The Movie Database (TMDb) API v3
+- **Streaming**: VidSrc.cc embed provider
+- **PWA**: Progressive Web App with Service Worker
+- **Styling**: Pure CSS with custom design system
+- **Icons**: Emoji-based iconography for universal compatibility
+
+## 📱 Supported Devices
+
+### Smart TVs
+- Samsung Smart TV (2015+)
+- LG Smart TV (WebOS)
+- Sony Smart TV (Android TV)
+- TCL Smart TV (Roku OS)
+- Hisense Smart TV
+- Android TV devices
+- Fire TV Stick 4K
+
+### Web Browsers
+- Chrome (60+)
+- Firefox (55+)
+- Safari (12+)
+- Edge (79+)
+- Samsung Internet (8+)
+- Opera (47+)
+
+### Other Devices
+- Desktop/Laptop computers
+- Tablets (iPad, Android tablets)
+- Mobile phones (responsive design)
+- Projectors with smart capabilities
 
 ## 🚀 Quick Start
 
 ### Prerequisites
-- Modern web browser with JavaScript enabled
-- Internet connection for API access
-- Smart TV or browser-based TV interface
+- Modern web browser
+- Internet connection
+- TMDb API key (free from [themoviedb.org](https://www.themoviedb.org/))
 
-### Installation
+### Installation Options
 
-1. **Download the Application**
-   ```bash
-   # Clone or download the project files
-   # Ensure all files are in the same directory:
-   # - index.html
-   # - styles.css
-   # - app.js
-   # - sw.js (Service Worker)
-   ```
+#### Option 1: Direct Web Access
+1. Visit the live application: [https://rgsq2s85zn5j.space.minimax.io](https://rgsq2s85zn5j.space.minimax.io)
+2. No installation required - works directly in your browser
 
-2. **Deploy to Web Server**
-   ```bash
-   # Option 1: Simple HTTP server
-   python -m http.server 8000
-   
-   # Option 2: Node.js server
-   npx http-server
-   
-   # Option 3: Deploy to any web hosting service
-   ```
+#### Option 2: Local Development
+```bash
+# Clone the repository
+git clone https://github.com/abhishek9871/StreamFlix.git
+cd StreamFlix
 
-3. **Access the Application**
-   - Open your browser and navigate to `http://localhost:8000`
-   - For Smart TVs, ensure the TV's browser can access the hosted URL
+# Start local server
+python3 -m http.server 8000
+# or
+npx http-server
 
-### API Configuration
-
-The application uses the TMDb API with the provided key:
-- **API Key**: `61d95006877f80fb61358dbb78f153c3`
-- **Base URL**: `https://api.themoviedb.org/3`
-- **Image Base URL**: `https://image.tmdb.org/t/p/w500`
-
-⚠️ **Note**: The provided API key is for development/testing purposes. For production use, please register for your own API key at [TMDb](https://www.themoviedb.org/settings/api).
-
-## 🎮 Remote Control Navigation
-
-### Navigation Keys
-- **Arrow Keys**: Navigate between UI elements
-- **Enter**: Select/activate focused element
-- **Escape/Back**: Go back or close modals
-- **Tab**: Switch between major sections
-
-### Navigation Pattern
-1. **Sidebar Navigation**: Left/right to expand/collapse, up/down to switch sections
-2. **Content Rails**: Left/right to scroll through content, up/down to move between rails
-3. **Grid Views**: Arrow keys to navigate grid items
-4. **Modals**: Arrow keys to navigate controls, Enter to activate
-
-### Focus Management
-- Focus automatically moves to the next logical element
-- Visual focus indicators with red glow effects
-- Scroll into view for content outside the viewport
-- Wrap-around navigation in content lists
-
-## 📱 Sections & Features
-
-### Home Section
-- **Hero Content**: Featured movie/show with play and info buttons
-- **Trending Rail**: Popular content from the past week
-- **Popular Movies**: Currently popular movies
-- **Popular TV Shows**: Currently popular television series
-
-### Movies Section
-- **Filter Options**: Popular, Top Rated, Upcoming
-- **Grid Layout**: Optimized for large screens
-- **Movie Details**: Synopsis, ratings, cast, and streaming options
-
-### TV Shows Section
-- **Filter Options**: Popular, Top Rated, On Air
-- **Episode Support**: Season and episode selection
-- **Auto-Continue**: Automatically plays next episodes
-
-### Search Section
-- **Global Search**: Search across movies and TV shows
-- **Real-time Results**: Live search with 500ms debounce
-- **Combined Results**: Movies and TV shows in unified results
-
-## 🎥 Video Streaming
-
-### VidSrc Integration
-- **Movie Streaming**: Direct embedding from VidSrc servers
-- **TV Show Streaming**: Episode-by-episode viewing
-- **Auto-Play Control**: Configurable auto-play settings
-- **Multiple Qualities**: Automatic quality selection
-
-### Video Player Features
-- **Full-Screen Mode**: Optimized for TV screens
-- **Remote Control Support**: Play/pause, seek, volume controls
-- **Progress Tracking**: Watch progress and resume capability
-- **Error Handling**: Fallback servers for failed streams
-
-### Supported Content
-- **Movies**: All movies available in TMDb database
-- **TV Shows**: Complete series with season/episode support
-- **Quality**: Up to 1080p streaming quality
-- **Subtitles**: Multiple subtitle options when available
-
-## ⚡ Performance Optimizations
-
-### Slow Internet Optimization
-- **Progressive Loading**: Load critical content first
-- **Image Lazy Loading**: Load images as they come into view
-- **Cache Management**: Smart caching with background updates
-- **Bundle Optimization**: Minified and compressed assets
-
-### Smart TV Performance
-- **Hardware Acceleration**: CSS transforms for smooth animations
-- **Memory Management**: Efficient DOM manipulation
-- **Battery Optimization**: Reduced processing when inactive
-- **Network Efficiency**: Minimal API calls and smart caching
-
-### Caching Strategy
-- **Static Assets**: Cache HTML, CSS, JS files
-- **API Responses**: Cache TMDb API responses with TTL
-- **Images**: Cache movie posters and backdrop images
-- **Offline Fallback**: Provide cached content when offline
-
-## 🔧 Technical Details
-
-### Technologies Used
-- **HTML5**: Semantic markup with accessibility features
-- **CSS3**: Modern styling with Grid and Flexbox
-- **JavaScript ES6+**: Modern JavaScript with async/await
-- **Service Worker**: Offline functionality and caching
-- **TMDb API**: Movie and TV show data
-- **VidSrc**: Video streaming integration
-
-### Browser Compatibility
-- **Smart TV Browsers**: Samsung Tizen, LG webOS, Android TV
-- **Web Browsers**: Chrome, Firefox, Safari, Edge
-- **Mobile Browsers**: iOS Safari, Chrome Mobile
-- **Minimum Requirements**: ES6 support, Fetch API, Service Worker
-
-### File Structure
-```
-/
-├── index.html          # Main application HTML
-├── styles.css          # Application styles and themes
-├── app.js             # Main application JavaScript
-├── sw.js              # Service Worker for caching
-└── README.md          # This documentation
+# Access at http://localhost:8000
 ```
 
-## 🎯 Usage Examples
+#### Option 3: Deploy to Your Own Server
+```bash
+# Upload all files to your web server
+# Ensure HTTPS for PWA features
+# Access via your domain
+```
 
-### Basic Navigation
-1. **Start**: Application loads with Home section focused
-2. **Navigate**: Use arrow keys to move between elements
-3. **Select**: Press Enter to activate focused element
-4. **Search**: Navigate to Search section and type to search
+## 🎮 Navigation Guide
 
-### Content Interaction
-1. **Browse Content**: Navigate through content rails
-2. **View Details**: Select any movie/show card to view details
-3. **Play Content**: Click Play button or press Enter on content
-4. **Video Controls**: Use remote controls during playback
+### Remote Control Keys
+- **Arrow Keys**: Navigate between content items
+- **Enter**: Select movies/shows or play videos
+- **Escape/Back**: Close modals and return to previous screens
+- **Home**: Return to main dashboard
 
-### Smart Features
-- **Auto-Focus**: Focus automatically moves to relevant elements
-- **Focus Memory**: Application remembers navigation context
-- **Smooth Transitions**: Animations optimized for TV performance
-- **Error Recovery**: Graceful handling of network errors
+### Keyboard Shortcuts (Desktop)
+- **Arrow Keys**: Navigate content
+- **Enter**: Activate focused element
+- **Escape**: Close modal/player
+- **H**: Go to Home
+- **M**: Go to Movies
+- **T**: Go to TV Shows
+- **S**: Focus search input
+- **/**: Quick search
 
-## 🚨 Troubleshooting
+## 📡 API Integration
 
-### Common Issues
+### TMDb API Configuration
+The application uses TMDb (The Movie Database) for content metadata:
 
-**Application not loading:**
-- Check internet connection
-- Verify web server is running
-- Ensure JavaScript is enabled
+```javascript
+// API Configuration
+const TMDB_API_KEY = '61d95006877f80fb61358dbb78f153c3';
+const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
+const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p/w500';
+```
 
-**Remote control not working:**
-- Check TV browser keyboard support
-- Verify focus is on the application
-- Try refreshing the page
+### Endpoints Used
+- `/trending/all/week` - Trending content
+- `/movie/popular` - Popular movies
+- `/tv/popular` - Popular TV shows
+- `/movie/top_rated` - Top rated movies
+- `/tv/top_rated` - Top rated TV shows
+- `/search/movie` - Movie search
+- `/search/tv` - TV show search
 
-**Videos not playing:**
-- Check VidSrc server status
-- Verify internet connection speed
-- Try different content
+### VidSrc Streaming
+Movies and TV shows are streamed via VidSrc.cc:
+- Movies: `https://vidsrc.cc/v2/embed/movie/{tmdbId}`
+- TV Shows: `https://vidsrc.cc/v2/embed/tv/{tmdbId}/{season}/{episode}`
 
-**Performance issues:**
-- Clear browser cache
-- Check available memory
-- Close other applications
+## 🎨 Design System
 
-### Performance Tips
-- Use Ethernet connection when possible
-- Close unnecessary browser tabs
-- Keep application updated
-- Monitor cache usage in developer tools
+### Color Palette
+```css
+--primary-500: #E50914;     /* Netflix Red */
+--background-base: #000000;  /* Pure Black */
+--surface-layer-1: #141414;  /* Dark Gray */
+--surface-layer-2: #1f1f1f;  /* Lighter Gray */
+--text-primary: #ffffff;     /* White Text */
+--text-secondary: #b3b3b3;   /* Gray Text */
+```
+
+### Typography
+- **Font Family**: Poppins (fallback: sans-serif)
+- **Size Range**: 16px (small) to 80px (hero)
+- **Weight Range**: 300 (light) to 700 (bold)
+
+### Spacing System
+- **Base Unit**: 8px
+- **Scale**: 8px, 16px, 24px, 32px, 48px, 64px, 96px
+
+### Focus States
+- **Glow Effect**: `box-shadow: 0 0 24px 8px rgba(229, 9, 20, 0.7)`
+- **Scale Transform**: `transform: scale(1.05)`
+- **Transition**: `transition: all 0.3s ease`
+
+## 🔧 Configuration
+
+### Environment Variables
+No environment variables required - all configuration is client-side.
+
+### Customization Options
+1. **API Key**: Change TMDb API key in `app.js`
+2. **Streaming Provider**: Modify VidSrc URLs in streaming functions
+3. **Colors**: Update CSS custom properties in `:root`
+4. **Content Sections**: Modify content loading functions
+
+## 📱 PWA Installation
+
+### Installation Steps
+1. Visit the application in a compatible browser
+2. Look for the "Install" prompt or "Add to Home Screen"
+3. Follow browser-specific installation instructions
+4. Launch from your device's app menu
+
+### PWA Features
+- **Offline Support**: Basic functionality works offline
+- **App Shortcuts**: Quick access to Home, Movies, TV Shows
+- **Fullscreen Mode**: Immersive viewing experience
+- **Background Sync**: Content updates in background
 
 ## 🔒 Security & Privacy
 
-### Data Usage
-- **API Calls**: Real-time requests to TMDb servers
-- **Caching**: Local storage of frequently accessed content
-- **No Personal Data**: Application doesn't store personal information
-- **Secure Connections**: All API calls use HTTPS
+### Data Handling
+- **No User Data Collection**: Application does not store personal information
+- **No Tracking**: No analytics or user tracking implemented
+- **API Security**: TMDb API key is client-side (review your usage limits)
+- **Secure Streaming**: All streaming goes through HTTPS
 
-### Privacy Considerations
-- **No Tracking**: No user analytics or tracking
-- **Local Storage**: Only caching for performance
-- **API Rate Limits**: Respects TMDb API rate limits
-- **No Registration**: No user accounts required
+### CORS & Permissions
+- **API Calls**: Direct TMDb API integration
+- **No Server Required**: Completely client-side application
+- **No Cookies**: No persistent storage except service worker cache
 
-## 📈 Future Enhancements
+## 🐛 Troubleshooting
 
-### Planned Features
-- **User Profiles**: Multiple user support
-- **Watchlists**: Save content for later viewing
-- **Recommendations**: AI-powered content suggestions
-- **Parental Controls**: Content filtering options
+### Common Issues
 
-### Technical Improvements
-- **Offline Mode**: Complete offline functionality
-- **PWA Features**: Install as native app
-- **Voice Control**: Voice command support
-- **Analytics**: Usage tracking and optimization
+#### Content Not Loading
+- **Check Internet Connection**: Ensure stable internet access
+- **API Limits**: TMDb has rate limits - wait and retry
+- **Browser Cache**: Clear cache and reload
+- **Console Errors**: Check browser developer console
+
+#### Video Playback Issues
+- **VidSrc Availability**: Some content may be unavailable
+- **Browser Compatibility**: Try different browser
+- **Ad Blockers**: Disable ad blockers for streaming
+- **Network Issues**: Check network stability
+
+#### Navigation Problems
+- **Focus Issues**: Refresh page to reset focus
+- **Remote Control**: Ensure remote is paired and working
+- **Keyboard Events**: Check if keyboard events are captured
+
+#### Performance Issues
+- **Slow Loading**: Check internet speed
+- **Memory Usage**: Close other tabs
+- **Cache Clearing**: Clear service worker cache
+- **Device Restart**: Restart device if persistent issues
+
+### Diagnostic Steps
+1. Open browser developer console (F12)
+2. Check for JavaScript errors
+3. Verify network requests in Network tab
+4. Test with different browser
+5. Check TMDb API status
+6. Verify VidSrc availability
+
+## 🤝 Contributing
+
+### Development Setup
+```bash
+# Fork the repository
+# Clone your fork
+git clone https://github.com/yourusername/StreamFlix.git
+cd StreamFlix
+
+# Create feature branch
+git checkout -b feature/amazing-feature
+
+# Make changes and test
+# Commit changes
+git commit -m 'Add amazing feature'
+
+# Push to your fork
+git push origin feature/amazing-feature
+
+# Create Pull Request
+```
+
+### Contribution Guidelines
+1. **Code Style**: Follow existing code formatting
+2. **Testing**: Test on multiple devices/browsers
+3. **Documentation**: Update README if needed
+4. **Performance**: Maintain slow internet optimization
+5. **Accessibility**: Ensure remote control compatibility
+
+### Areas for Contribution
+- Additional streaming providers
+- More content filtering options
+- User profiles and watchlists
+- Parental controls
+- Additional languages
+- Enhanced PWA features
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- **The Movie Database (TMDb)** for providing excellent movie/TV APIs
+- **VidSrc.cc** for streaming video content
+- **Netflix** for inspiring modern streaming UI/UX
+- **Web Standards Community** for PWA and accessibility guidelines
 
 ## 📞 Support
 
 ### Getting Help
-- **Documentation**: Check this README for detailed information
-- **Browser Console**: Use developer tools for debugging
-- **Network Tab**: Monitor API calls and performance
-- **Service Worker**: Check cache status in developer tools
+- **Issues**: [GitHub Issues](https://github.com/abhishek9871/StreamFlix/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/abhishek9871/StreamFlix/discussions)
+- **Documentation**: This README file
+- **API Docs**: [TMDb API Documentation](https://developers.themoviedb.org/3)
 
-### Known Limitations
-- **API Dependency**: Requires active TMDb API access
-- **Video Availability**: Depends on VidSrc server availability
-- **Browser Support**: Limited to modern browsers with ES6 support
-- **Internet Required**: Most features require internet connection
+### Reporting Bugs
+Please use GitHub Issues with:
+- Device type and model
+- Browser version
+- Steps to reproduce
+- Expected vs actual behavior
+- Console error messages (if any)
 
-## 📄 License
+### Feature Requests
+Use GitHub Issues with:
+- Clear description of the feature
+- Use case and benefits
+- Implementation suggestions (optional)
+- Mockups or examples (if applicable)
 
-This application is created for educational and demonstration purposes. Please respect the terms of service of TMDb API and VidSrc when using in production environments.
+## 🗺️ Roadmap
+
+### Version 1.1 (Planned)
+- [ ] Multiple streaming providers
+- [ ] User watchlists
+- [ ] Content recommendations
+- [ ] Multiple language support
+
+### Version 1.2 (Planned)
+- [ ] User profiles
+- [ ] Parental controls
+- [ ] Content download for offline
+- [ ] Advanced search filters
+
+### Version 2.0 (Future)
+- [ ] Live TV streaming
+- [ ] Sports content
+- [ ] News integration
+- [ ] Social features
+
+## 📊 Project Statistics
+
+- **Lines of Code**: ~1,900 (HTML, CSS, JavaScript)
+- **File Size**: <1MB (excluding dependencies)
+- **Dependencies**: 0 external libraries
+- **Browser Support**: Modern browsers (2018+)
+- **Device Compatibility**: All web-enabled devices
 
 ---
 
-**Built with ❤️ for Smart TV streaming enthusiasts**
+## 🌟 Star History
 
-*Optimized for Smart TVs, slow internet connections, and premium viewing experiences.*
+If you find this project helpful, please consider giving it a star on GitHub!
+
+---
+
+**Made with ❤️ for Smart TV streaming enthusiasts**
+
+*Last updated: October 30, 2025*
