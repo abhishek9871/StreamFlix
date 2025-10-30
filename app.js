@@ -224,19 +224,86 @@ class CinematicTV {
     // Remote Control Navigation
     setupRemoteControlNavigation() {
         document.addEventListener('keydown', (e) => this.handleRemoteControl(e));
-        
-        // Initialize focus on first element
-        setTimeout(() => {
-            const firstElement = document.querySelector('[tabindex="0"]');
+
+        // Don't auto-focus on load - let user navigate naturally
+        // Focus will be set when user starts navigating with remote
+        this.setupInitialFocus();
+    }
+
+    setupInitialFocus() {
+        // Set up initial focus on first content card when user starts navigating
+        const focusFirstContent = () => {
+            const firstElement = document.querySelector('.content-card');
             if (firstElement) {
-                firstElement.focus();
+                this.focusElement(firstElement);
             }
-        }, 500);
+            document.removeEventListener('keydown', focusFirstContent);
+        };
+
+        document.addEventListener('keydown', focusFirstContent, { once: true });
     }
 
     handleRemoteControl(e) {
+        // Check if video modal is active - if so, let video player handle most controls
+        const videoModal = document.querySelector('.video-modal.active');
+        const closeButton = document.getElementById('videoClose');
         const focusedElement = document.activeElement;
-        
+
+        if (videoModal) {
+            // When video is playing, only handle Back/Escape to close
+            // Allow all other keys to pass through to the video iframe
+            switch(e.key) {
+                case 'Escape':
+                case 'Backspace':
+                    e.preventDefault();
+                    this.handleBack();
+                    return;
+
+                case 'Enter':
+                    // Enter should toggle play/pause if not focused on close button
+                    if (focusedElement !== closeButton) {
+                        e.preventDefault();
+                        // Send play/pause command to video iframe
+                        this.sendCommandToVideo('playpause');
+                    }
+                    return;
+
+                case ' ':
+                    // Space bar for play/pause (alternative to Enter)
+                    e.preventDefault();
+                    this.sendCommandToVideo('playpause');
+                    return;
+
+                case 'ArrowUp':
+                    // Send seek forward command
+                    e.preventDefault();
+                    this.sendCommandToVideo('seekforward');
+                    return;
+
+                case 'ArrowDown':
+                    // Send seek backward command
+                    e.preventDefault();
+                    this.sendCommandToVideo('seekbackward');
+                    return;
+
+                case 'ArrowLeft':
+                    // Send previous episode/track or rewind
+                    e.preventDefault();
+                    this.sendCommandToVideo('rewind');
+                    return;
+
+                case 'ArrowRight':
+                    // Send next episode/track or forward
+                    e.preventDefault();
+                    this.sendCommandToVideo('forward');
+                    return;
+            }
+            // For volume keys, channel keys, and other Smart TV remote keys
+            // Let them pass through - Smart TV handles these at system level
+            return;
+        }
+
+        // Normal navigation when video is not playing
         switch(e.key) {
             case 'ArrowUp':
                 e.preventDefault();
@@ -623,49 +690,65 @@ class CinematicTV {
     async playContent(item, episode = null) {
         const modal = document.getElementById('videoModal');
         const videoFrame = document.getElementById('videoFrame');
-        const videoInfo = document.getElementById('videoInfo');
-        
+
         const isMovie = !!item.title;
         let embedUrl;
-        
+
         if (isMovie) {
-            embedUrl = `https://vidsrc.cc/v2/embed/movie/${item.id}?autoPlay=false`;
-            videoInfo.textContent = `${item.title} (${(item.release_date || '').split('-')[0]})`;
+            embedUrl = `https://vidsrc.cc/v2/embed/movie/${item.id}?autoPlay=true&controls=1`;
         } else {
             if (episode) {
-                embedUrl = `https://vidsrc.cc/v2/embed/tv/${item.id}/${episode.season}/${episode.episode}?autoPlay=false`;
-                videoInfo.textContent = `${item.name} - S${episode.season}E${episode.episode}: ${episode.name}`;
+                embedUrl = `https://vidsrc.cc/v2/embed/tv/${item.id}/${episode.season}/${episode.episode}?autoPlay=true&controls=1`;
             } else {
-                embedUrl = `https://vidsrc.cc/v2/embed/tv/${item.id}?autoPlay=false`;
-                videoInfo.textContent = `${item.name} (${(item.first_air_date || '').split('-')[0]})`;
+                embedUrl = `https://vidsrc.cc/v2/embed/tv/${item.id}?autoPlay=true&controls=1`;
             }
         }
-        
+
         videoFrame.src = embedUrl;
         modal.classList.add('active');
-        
+
         // Setup video player controls
         this.setupVideoControls(item, episode);
     }
 
     setupVideoControls(item, episode) {
         const videoFrame = document.getElementById('videoFrame');
-        
+        const closeButton = document.getElementById('videoClose');
+
+        // Focus the video iframe when modal opens
+        setTimeout(() => {
+            videoFrame.focus();
+        }, 100);
+
+        // Also allow focusing close button with specific remote key combinations
+        // (This is optional - the close button will still work with Back/Escape)
+
         // Listen for video player events
         window.addEventListener('message', (event) => {
             if (event.origin !== 'https://vidsrc.cc') return;
-            
+
             if (event.data && event.data.type === 'PLAYER_EVENT') {
                 console.log('Player event:', event.data.data);
-                
+
                 // Update control states based on events
                 const { event: eventType, currentTime, duration } = event.data.data;
-                
+
                 if (eventType === 'complete') {
                     this.handleVideoComplete(item, episode);
                 }
             }
         });
+    }
+
+    sendCommandToVideo(command) {
+        const videoFrame = document.getElementById('videoFrame');
+        if (!videoFrame || !videoFrame.contentWindow) return;
+
+        // Send command to video player via postMessage
+        videoFrame.contentWindow.postMessage({
+            type: 'REMOTE_COMMAND',
+            command: command
+        }, 'https://vidsrc.cc');
     }
 
     handleVideoComplete(item, episode) {
