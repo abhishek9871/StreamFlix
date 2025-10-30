@@ -123,7 +123,7 @@ class CinematicTV {
             ]);
 
         } catch (error) {
-            console.error('Failed to load initial content:', error);
+            console.error('Failed to load initial content:', error, error && error.stack);
         }
     }
 
@@ -133,6 +133,12 @@ class CinematicTV {
         const heroDescription = document.getElementById('heroDescription');
         const heroPlayBtn = document.getElementById('heroPlayBtn');
         const heroMoreBtn = document.getElementById('heroMoreBtn');
+
+        // If elements are not present yet (edge cases when script runs early), retry shortly
+        if (!heroSection || !heroTitle || !heroDescription || !heroPlayBtn || !heroMoreBtn) {
+            setTimeout(() => this.setupHeroContent(item), 100);
+            return;
+        }
 
         heroTitle.textContent = item.title || item.name || 'Featured Content';
         heroDescription.textContent = item.overview || 'Experience amazing content with premium streaming quality.';
@@ -191,7 +197,7 @@ class CinematicTV {
         
         card.innerHTML = `
             ${imageUrl ? 
-                `<img src="${imageUrl}" alt="${item.title || item.name}" loading="lazy">` : 
+                `<img src="${imageUrl}" alt="${item.title || item.name}" loading="lazy" crossorigin="anonymous" onerror="this.outerHTML='&lt;div class=\'card-placeholder\'&gt;${type === 'movie' ? '🎬' : '📺'}&lt;/div&gt;'">` : 
                 `<div class="card-placeholder">${type === 'movie' ? '🎬' : '📺'}</div>`
             }
             <div class="card-info">
@@ -587,7 +593,7 @@ class CinematicTV {
         modalBody.innerHTML = `
             <div class="detail-header">
                 ${posterUrl ? 
-                    `<img src="${posterUrl}" alt="${title}" class="detail-poster">` : 
+                    `<img src="${posterUrl}" alt="${title}" class="detail-poster" crossorigin="anonymous" onerror="this.outerHTML='&lt;div class=\'detail-poster\' style=\'background:#333;display:flex;align-items:center;justify-content:center;font-size:48px;\'&gt;📺&lt;/div&gt;'">` : 
                     '<div class="detail-poster" style="background: #333; display: flex; align-items: center; justify-content: center; font-size: 48px;">📺</div>'
                 }
                 <div class="detail-info">
